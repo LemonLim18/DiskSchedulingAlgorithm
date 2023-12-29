@@ -5,7 +5,7 @@ def SCAN(requestArray, headPosition, cylinderNum):
  
     seek_count = 0
     max_seek = 0
-    distance, cur_track = 0, 0
+    distance, currentTrack = 0, 0
     left = []
     right = []
     seek_sequence = []
@@ -24,32 +24,32 @@ def SCAN(requestArray, headPosition, cylinderNum):
  
 
     for i in range(len(right)):
-        cur_track = right[i]
+        currentTrack = right[i]
              
-        seek_sequence.append(cur_track)
+        seek_sequence.append(currentTrack)
  
-        distance = abs(cur_track - headPosition)
+        distance = abs(currentTrack - headPosition)
  
         seek_count += distance
 
         max_seek = max(max_seek, distance)
  
-        headPosition = cur_track
+        headPosition = currentTrack
          
     # Scanning left
     for i in range(len(left) - 1, -1, -1):
-        cur_track = left[i]
+        currentTrack = left[i]
  
-        seek_sequence.append(cur_track)
+        seek_sequence.append(currentTrack)
  
         # Calculate absolute distance
-        distance = abs(cur_track - headPosition)
+        distance = abs(currentTrack - headPosition)
  
         seek_count += distance
 
         max_seek = max(max_seek, distance)
  
-        headPosition = cur_track
+        headPosition = currentTrack
     
     print('SCAN:')
     print("\tTotal number of seek operations =", 
@@ -69,7 +69,7 @@ def CSCAN(requestArray, headPosition, cylinderNum):
  
     seek_count = 0
     max_seek = 0
-    distance, cur_track = 0, 0
+    distance, currentTrack = 0, 0
     left = []
     right = []
     seek_sequence = []
@@ -87,17 +87,17 @@ def CSCAN(requestArray, headPosition, cylinderNum):
     right.sort()
  
     for i in range(len(right)):
-        cur_track = right[i]
+        currentTrack = right[i]
  
-        seek_sequence.append(cur_track)
+        seek_sequence.append(currentTrack)
  
-        distance = abs(cur_track - headPosition)
+        distance = abs(currentTrack - headPosition)
  
         seek_count += distance
 
         max_seek = max(max_seek, distance)
  
-        headPosition = cur_track
+        headPosition = currentTrack
  
 
     headPosition = 0
@@ -106,19 +106,19 @@ def CSCAN(requestArray, headPosition, cylinderNum):
  
 
     for i in range(len(left)):
-        cur_track = left[i]
+        currentTrack = left[i]
  
 
-        seek_sequence.append(cur_track)
+        seek_sequence.append(currentTrack)
  
-        distance = abs(cur_track - headPosition)
+        distance = abs(currentTrack - headPosition)
  
         seek_count += distance
 
         max_seek = max(max_seek, distance)
  
 
-        headPosition = cur_track
+        headPosition = currentTrack
     
     print('\n\nC-SCAN:')
     print("\tTotal number of seek operations =", 
@@ -137,7 +137,7 @@ def CLOOK(requestArray, headPosition):
  
     seek_count = 0
     max_seek = 0
-    distance, cur_track = 0, 0
+    distance, currentTrack = 0, 0
     left = []
     right = []
     seek_sequence = []
@@ -154,40 +154,39 @@ def CLOOK(requestArray, headPosition):
  
 
     for i in range(len(right)):
-        cur_track = right[i]
+        currentTrack = right[i]
  
-        seek_sequence.append(cur_track)
+        seek_sequence.append(currentTrack)
  
-        distance = abs(cur_track - headPosition)
+        distance = abs(currentTrack - headPosition)
  
         seek_count += distance
 
         max_seek = max(max_seek, distance)
  
-        headPosition = cur_track
+        headPosition = currentTrack
  
     if len(left) != 0:
         seek_count += abs(headPosition - left[0])
         headPosition = left[0]
 
     for i in range(len(left)):
-        cur_track = left[i]
+        currentTrack = left[i]
  
-        # Appending current track
-        # to seek sequence
-        seek_sequence.append(cur_track)
+        # Appending current track to seek sequence
+        seek_sequence.append(currentTrack)
  
-        # Calculate absolute distance
-        distance = abs(cur_track - headPosition)
+        # to find absolute distance
+        distance = abs(currentTrack - headPosition)
  
-        # Increase the total count
+        # to increase the total count
         seek_count += distance
 
-        # Check if this distance is the max seek
+        # to check if this distance is the max seek
         max_seek = max(max_seek, distance)
  
-        # Accessed track is now the new headPosition
-        headPosition = cur_track
+        # make the currently accessed track the new headPosition
+        headPosition = currentTrack
     
     print('\n\nC-LOOK:')
     print("\tTotal number of seek operations =", 
