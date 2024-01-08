@@ -52,7 +52,7 @@ def SCAN(requestArray, headPosition, cylinderNum):
         headPosition = currentTrack
     
     print('SCAN:')
-    print("\tTotal number of seek operations =", 
+    print("\tTotal seek time =", 
           seek_count)
  
     print("\tAverage seek time =", seek_count / size)
@@ -99,7 +99,8 @@ def CSCAN(requestArray, headPosition, cylinderNum):
  
         headPosition = currentTrack
  
-
+    # Consider the return seek time from right to left
+    max_seek = max(max_seek, headPosition);
     headPosition = 0
  
     seek_count += (cylinderNum - 1)
@@ -121,7 +122,7 @@ def CSCAN(requestArray, headPosition, cylinderNum):
         headPosition = currentTrack
     
     print('\n\nC-SCAN:')
-    print("\tTotal number of seek operations =", 
+    print("\tTotal seek time =", 
           seek_count)
  
     print("\tAverage seek time =", seek_count / size)
@@ -168,6 +169,7 @@ def CLOOK(requestArray, headPosition):
  
     if len(left) != 0:
         seek_count += abs(headPosition - left[0])
+        max_seek = max(max_seek, abs(headPosition - left[0]));
         headPosition = left[0]
 
     for i in range(len(left)):
@@ -187,9 +189,10 @@ def CLOOK(requestArray, headPosition):
  
         # make the currently accessed track the new headPosition
         headPosition = currentTrack
+
     
     print('\n\nC-LOOK:')
-    print("\tTotal number of seek operations =", 
+    print("\tTotal seek time =", 
           seek_count)
  
     print("\tAverage seek time =", seek_count / len(requestArray))
