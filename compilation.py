@@ -13,6 +13,9 @@ def SCAN(requestArray, headPosition, cylinderNum):
     right.append(cylinderNum - 1)
  
     for i in range(size):
+        # prevent to take in any same 199 and 0 values
+        if(requestArray[i] == 199 or requestArray[i] == 0):
+            continue;
         if (requestArray[i] < headPosition):
             left.append(requestArray[i])
         if (requestArray[i] > headPosition):
@@ -55,7 +58,7 @@ def SCAN(requestArray, headPosition, cylinderNum):
     print("\tTotal seek time =", 
           seek_count)
  
-    print("\tAverage seek time =", seek_count / size)
+    print("\tAverage seek time =", seek_count / len(seek_sequence))
 
     print("\tWorst-case seek time =", max_seek)
  
@@ -78,6 +81,9 @@ def CSCAN(requestArray, headPosition, cylinderNum):
     right.append(cylinderNum - 1)
  
     for i in range(size):
+        # prevent to take in any same 199 and 0 values
+        if(requestArray[i] == 199 or requestArray[i] == 0):
+            continue;
         if (requestArray[i] < headPosition):
             left.append(requestArray[i])
         if (requestArray[i] > headPosition):
@@ -99,13 +105,7 @@ def CSCAN(requestArray, headPosition, cylinderNum):
  
         headPosition = currentTrack
  
-    # Consider the return seek time from right to left
-    max_seek = max(max_seek, headPosition);
-    headPosition = 0
- 
-    seek_count += (cylinderNum - 1)
- 
-
+    
     for i in range(len(left)):
         currentTrack = left[i]
  
@@ -115,9 +115,13 @@ def CSCAN(requestArray, headPosition, cylinderNum):
         distance = abs(currentTrack - headPosition)
  
         seek_count += distance
-
+        
+        # check for the first element in the left array, that is to prevent the return seek time
+        if(left[i] == 0):
+            headPosition = currentTrack
+            continue
+        
         max_seek = max(max_seek, distance)
- 
 
         headPosition = currentTrack
     
@@ -125,7 +129,7 @@ def CSCAN(requestArray, headPosition, cylinderNum):
     print("\tTotal seek time =", 
           seek_count)
  
-    print("\tAverage seek time =", seek_count / size)
+    print("\tAverage seek time =", seek_count / len(seek_sequence))
 
     print("\tWorst-case seek time =", max_seek)
  
@@ -144,6 +148,9 @@ def CLOOK(requestArray, headPosition):
     seek_sequence = []
  
     for i in range(len(requestArray)):
+        # prevent to take in any same 199 and 0 values
+        if(requestArray[i] == 199 or requestArray[i] == 0):
+            continue;
         if (requestArray[i] < headPosition):
             left.append(requestArray[i])
         if (requestArray[i] > headPosition):
@@ -169,7 +176,6 @@ def CLOOK(requestArray, headPosition):
  
     if len(left) != 0:
         seek_count += abs(headPosition - left[0])
-        max_seek = max(max_seek, abs(headPosition - left[0]));
         headPosition = left[0]
 
     for i in range(len(left)):
@@ -189,7 +195,6 @@ def CLOOK(requestArray, headPosition):
  
         # make the currently accessed track the new headPosition
         headPosition = currentTrack
-
     
     print('\n\nC-LOOK:')
     print("\tTotal seek time =", 
