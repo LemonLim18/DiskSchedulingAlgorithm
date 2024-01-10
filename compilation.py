@@ -174,10 +174,6 @@ def CLOOK(requestArray, headPosition):
         max_seek = max(max_seek, distance)
  
         headPosition = currentTrack
- 
-    if len(left) != 0:
-        seek_count += abs(headPosition - left[0])
-        headPosition = left[0]
 
     for i in range(len(left)):
         currentTrack = left[i]
