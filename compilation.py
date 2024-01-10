@@ -2,7 +2,7 @@ import random
 
 # START OF SCAN
 def SCAN(requestArray, headPosition, cylinderNum):
- 
+    initialHeadPosition = headPosition
     seek_count = 0
     max_seek = 0
     distance, currentTrack = 0, 0
@@ -55,22 +55,23 @@ def SCAN(requestArray, headPosition, cylinderNum):
         headPosition = currentTrack
     
     print('SCAN:')
+    print('\tDisk Head Initial Position: ', initialHeadPosition)
+    print("\tSeek sequence: ", end="")
+    print("\t" + ", ".join(map(str, seek_sequence)))
     print("\tTotal seek time =", 
           seek_count)
  
-    print('\tNumber of divisor: ', len(seek_sequence))
+    print('\tNumber of seeks in the sequence: ', len(seek_sequence))
     print("\tAverage seek time =", seek_count / len(seek_sequence))
 
     print("\tWorst-case seek time =", max_seek)
- 
-    print("\tSeek sequence: ", end="")
-    print("\t" + ", ".join(map(str, seek_sequence)))
+    
 # END OF SCAN
  
 
 # START OF CSCAN
 def CSCAN(requestArray, headPosition, cylinderNum):
- 
+    initialHeadPosition = headPosition
     seek_count = 0
     max_seek = 0
     distance, currentTrack = 0, 0
@@ -127,20 +128,22 @@ def CSCAN(requestArray, headPosition, cylinderNum):
         headPosition = currentTrack
     
     print('\n\nC-SCAN:')
+    print('\tDisk Head Initial Position: ', initialHeadPosition)
+    print("\tSeek sequence: ", end="")
+    print("\t" + ", ".join(map(str, seek_sequence)))
     print("\tTotal seek time =", 
           seek_count)
-    print('\tNumber of divisor: ', len(seek_sequence))
+    print('\tNumber of seeks in the sequence: ', len(seek_sequence))
     print("\tAverage seek time =", seek_count / len(seek_sequence))
 
     print("\tWorst-case seek time =", max_seek)
  
-    print("\tSeek sequence: ", end="")
-    print("\t" + ", ".join(map(str, seek_sequence)))
+    
 # END OF CSCAN
 
 # START OF CLOOK
 def CLOOK(requestArray, headPosition):
- 
+    initialHeadPosition = headPosition
     seek_count = 0
     max_seek = 0
     distance, currentTrack = 0, 0
@@ -195,16 +198,17 @@ def CLOOK(requestArray, headPosition):
         headPosition = currentTrack
     
     print('\n\nC-LOOK:')
-    print("\tTotal seek time =", 
-          seek_count)
-    print('\tNumber of divisor: ', len(seek_sequence))
-    print("\tAverage seek time =", seek_count / len(requestArray))
-
-    print("\tWorst-case seek time =", max_seek)
- 
+    print('\tDisk Head Initial Position: ', initialHeadPosition)
     print("\tSeek sequence: ", end="")
     # to prevent the first comma to appear before the first element
     print("\t" + ", ".join(map(str, seek_sequence)))
+    print("\tTotal seek time =", 
+          seek_count)
+    print('\tNumber of seeks in the sequence: ', len(seek_sequence))
+    print("\tAverage seek time =", seek_count / len(requestArray))
+
+    print("\tWorst-case seek time =", max_seek)
+    
     print('\n\n')
 # END OF CLOOK
 
