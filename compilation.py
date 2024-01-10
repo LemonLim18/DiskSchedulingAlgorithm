@@ -13,12 +13,12 @@ def SCAN(requestArray, headPosition, cylinderNum):
     right.append(cylinderNum - 1)
  
     for i in range(size):
-        # prevent to take in any same 199 and 0 values
+        # prevent to take in any redundant 199 and 0 values
         if(requestArray[i] == 199 or requestArray[i] == 0):
             continue;
         if (requestArray[i] < headPosition):
             left.append(requestArray[i])
-        if (requestArray[i] > headPosition):
+        if (requestArray[i] >= headPosition):
             right.append(requestArray[i])
  
 
@@ -58,6 +58,7 @@ def SCAN(requestArray, headPosition, cylinderNum):
     print("\tTotal seek time =", 
           seek_count)
  
+    print('\tNumber of divisor: ', len(seek_sequence))
     print("\tAverage seek time =", seek_count / len(seek_sequence))
 
     print("\tWorst-case seek time =", max_seek)
@@ -86,7 +87,7 @@ def CSCAN(requestArray, headPosition, cylinderNum):
             continue;
         if (requestArray[i] < headPosition):
             left.append(requestArray[i])
-        if (requestArray[i] > headPosition):
+        if (requestArray[i] >= headPosition):
             right.append(requestArray[i])
  
     left.sort()
@@ -128,7 +129,7 @@ def CSCAN(requestArray, headPosition, cylinderNum):
     print('\n\nC-SCAN:')
     print("\tTotal seek time =", 
           seek_count)
- 
+    print('\tNumber of divisor: ', len(seek_sequence))
     print("\tAverage seek time =", seek_count / len(seek_sequence))
 
     print("\tWorst-case seek time =", max_seek)
@@ -148,12 +149,9 @@ def CLOOK(requestArray, headPosition):
     seek_sequence = []
  
     for i in range(len(requestArray)):
-        # prevent to take in any same 199 and 0 values
-        if(requestArray[i] == 199 or requestArray[i] == 0):
-            continue;
         if (requestArray[i] < headPosition):
             left.append(requestArray[i])
-        if (requestArray[i] > headPosition):
+        if (requestArray[i] >= headPosition):
             right.append(requestArray[i])
  
 
@@ -199,7 +197,7 @@ def CLOOK(requestArray, headPosition):
     print('\n\nC-LOOK:')
     print("\tTotal seek time =", 
           seek_count)
- 
+    print('\tNumber of divisor: ', len(seek_sequence))
     print("\tAverage seek time =", seek_count / len(requestArray))
 
     print("\tWorst-case seek time =", max_seek)
@@ -216,7 +214,7 @@ headPosition = 50
 cylinderNum = 200
 size = int(input("Enter the number of I/O requests: "))
 # size = 8
-requestArray = random.sample(range(cylinderNum), size)
+requestArray = random.sample(range(1, cylinderNum-1), size)
 
 # For testing purposes, use the following requestArrayay:
 # requestArray = [ 176, 79, 34, 60, 92, 11, 41, 114 ]
